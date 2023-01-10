@@ -1,0 +1,48 @@
+diff -ruN nmos-js/Development/public/manifest.json nmos-js.new/Development/public/manifest.json
+--- nmos-js/Development/public/manifest.json
++++ nmos-js.new/Development/public/manifest.json
+@@ -1,7 +1,8 @@
+ {
+   "short_name": "nmos-js",
++  "name": "NVIDIA NMOS Commissioning Controller",
+   "start_url": "./index.html",
+   "display": "standalone",
+-  "theme_color": "rgb(0,47,103)",
++  "theme_color": "#76b900",
+   "background_color": "#ffffff"
+ }
+diff -ruN nmos-js/Development/src/components/AppLogo.js nmos-js.new/Development/src/components/AppLogo.js
+--- nmos-js/Development/src/components/AppLogo.js
++++ nmos-js.new/Development/src/components/AppLogo.js
+@@ -1,8 +1,9 @@
+-import AppLogoAsset from '../assets/sea-lion.png';
++import AppLogoAsset from '../assets/NVIDIA_Logo_H_ForScreen_ForLightBG.png';
+ 
+ const AppLogoStyle = {
++    backgroundColor: 'white',
+     border: '1px solid lightgray',
+-    borderRadius: '50%',
++    borderRadius: '25px',
+     padding: '4px',
+     margin: '16px',
+     maxWidth: '50%',
+diff -ruN nmos-js/Development/src/config.json nmos-js.new/Development/src/config.json
+--- nmos-js/Development/src/config.json
++++ nmos-js.new/Development/src/config.json
+@@ -1,13 +1,13 @@
+ {
+     "title": "nmos-js",
+-    "about": "An NMOS Client",
++    "about": "NVIDIA NMOS Commissioning Controller",
+     "palette": {
+         "primary": {
+-            "main": "rgb(45,117,199)",
++            "main": "#76b900",
+             "contrastText": "#fff"
+         },
+         "secondary": {
+-            "main": "rgb(0,47,103)",
++            "main": "#76b900",
+             "contrastText": "#fff"
+         }
+     },
