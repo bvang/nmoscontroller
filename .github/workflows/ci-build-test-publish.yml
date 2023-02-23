@@ -39,7 +39,7 @@ jobs:
           if [[ "${{ secrets.Docker_Image_Name }}" ]]; then 
             echo "DOCKER_IMAGE_NAME=${{ secrets.Docker_Image_Name }}" >> $GITHUB_ENV
           else
-            echo "DOCKER_IMAGE_NAME=bvang/nmos-cpp" >> $GITHUB_ENV
+            echo "DOCKER_IMAGE_NAME=rhastie/nmos-cpp" >> $GITHUB_ENV
           fi
 
       - name: Set platforms and tags
