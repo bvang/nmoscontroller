@@ -2,10 +2,10 @@ name: ci-build-test-publish
 
 on:
   push: 
-    branches: [dev, master]
+    branches: [dev, main]
 
   pull_request:
-    branches: [dev, master]
+    branches: [dev, main]
     
   workflow_dispatch:
 
@@ -45,13 +45,13 @@ jobs:
       - name: Set platforms and tags
         shell: bash
         run: |
-          if [[ "${{ secrets.BUILD_PLATFORMS }}" ]] && [[ "${{ env.GITHUB_BRANCH }}" == "master" ]]; then 
+          if [[ "${{ secrets.BUILD_PLATFORMS }}" ]] && [[ "${{ env.GITHUB_BRANCH }}" == "main" ]]; then 
             echo "BUILD_PLATFORMS=${{ secrets.BUILD_PLATFORMS }}" >> $GITHUB_ENV
           else
             echo "BUILD_PLATFORMS=linux/amd64" >> $GITHUB_ENV
           fi
 
-          if [[ "${{ secrets.PUSH_LATEST }}" == "TRUE" ]] && [[ "${{ env.GITHUB_BRANCH }}" == "master" ]]; then
+          if [[ "${{ secrets.PUSH_LATEST }}" == "TRUE" ]] && [[ "${{ env.GITHUB_BRANCH }}" == "main" ]]; then
             echo "BUILD_TAGS=${{ env.GITHUB_BRANCH }}-${{ env.GITHUB_COMMIT }},latest" >> $GITHUB_ENV
           else
             echo "BUILD_TAGS=${{ env.GITHUB_BRANCH }}-${{ env.GITHUB_COMMIT }}" >> $GITHUB_ENV
@@ -77,7 +77,7 @@ jobs:
         run: echo ${{ steps.buildx.outputs.platforms }}
 
       - name: Docker Buildx and load x86 image to Docker images
-        uses: ilteoood/docker_buildx@master
+        uses: ilteoood/docker_buildx@main
         with:
           dockerfile: Dockerfile
           publish: false
@@ -294,8 +294,8 @@ jobs:
           ip address
           
       - name: If Passes tests, Docker Buildx and publish x86 image to Docker Hub
-        if: env.TEST_FAIL == 'FALSE' && (env.GITHUB_BRANCH == 'master' || env.GITHUB_BRANCH == 'dev')
-        uses: ilteoood/docker_buildx@master
+        if: env.TEST_FAIL == 'FALSE' && (env.GITHUB_BRANCH == 'main' || env.GITHUB_BRANCH == 'dev')
+        uses: ilteoood/docker_buildx@main
         with:
           dockerfile: Dockerfile
           publish: true
@@ -308,7 +308,7 @@ jobs:
           dockerPassword: ${{ secrets.DockerHub_Password }}
 
       - name: Upload results to google sheets
-        if: env.TEST_FAIL == 'FALSE' && (env.GITHUB_BRANCH == 'master' || env.GITHUB_BRANCH == 'dev')
+        if: env.TEST_FAIL == 'FALSE' && (env.GITHUB_BRANCH == 'main' || env.GITHUB_BRANCH == 'dev')
         working-directory: ${{ env.RUNNER_WORKSPACE }}
         shell: bash
         run: |
@@ -317,8 +317,8 @@ jobs:
           export SHEET=https://docs.google.com/spreadsheets/d/${{ env.SECRET_RESULTS_SHEET_ID }}
           python ../utilities/run-test-suites/gsheetsImport/resultsImporter.py --credentials ${{ env.GDRIVE_CREDENTIALS }} --sheet "$SHEET" --insert --json ${{ env.GITHUB_COMMIT }}-*.json || echo "upload failed"
 
-      # - name: If Passes tests and branch == master, update Docker Hub README file using GitHub README.md
-      #   if: env.TEST_FAIL == 'FALSE' && env.GITHUB_BRANCH == 'master'
+      # - name: If Passes tests and branch == main, update Docker Hub README file using GitHub README.md
+      #   if: env.TEST_FAIL == 'FALSE' && env.GITHUB_BRANCH == 'main'
       #   uses: meeDamian/sync-readme@v1.0.6
       #   with:
       #     user: ${{ secrets.DockerHub_User }}
@@ -356,7 +356,7 @@ jobs:
     
 
   make-badges:
-    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     needs: docker-buildx-test-publish
     runs-on: ubuntu-latest
     steps:
