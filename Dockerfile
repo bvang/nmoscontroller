@@ -1,6 +1,6 @@
 FROM ubuntu:focal as stage1-build
 MAINTAINER rhastie@nvidia.com
-LABEL maintainer="rhastie@nvidia.com"
+LABEL maintainer="b.vang@ateme.com"
 
 ARG makemt
 
