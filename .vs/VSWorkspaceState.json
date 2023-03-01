@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\.github",
+    "\\.github\\scripts",
+    "\\.github\\workflows",
+    "\\example-conf",
+    "\\hooks"
   ],
   "PreviewInSolutionExplorer": false
 }
