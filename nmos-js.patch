@@ -33,7 +33,7 @@ diff -ruN nmos-js/Development/src/config.json nmos-js.new/Development/src/config
  {
      "title": "nmos-js",
 -    "about": "An NMOS Client",
-+    "about": "NVIDIA NMOS Commissioning Controller",
++    "about": "NVIDIA NMOS Commissioning Billy Controller",
      "palette": {
          "primary": {
 -            "main": "rgb(45,117,199)",
